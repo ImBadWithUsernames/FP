@@ -14,3 +14,4 @@ C:\Users\eahscs\Documents\GitHub\FP\FP\FP\FP\obj\x86\Debug\FP.csprojResolveAssem
 C:\Users\eahscs\Documents\GitHub\FP\FP\FP\FP\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\eahscs\Documents\GitHub\FP\FP\FP\FP\obj\x86\Debug\FP.exe
 C:\Users\eahscs\Documents\GitHub\FP\FP\FP\FP\obj\x86\Debug\FP.pdb
+C:\Users\eahscs\Documents\GitHub\FP\FP\FP\FP\bin\x86\Debug\Content\square.xnb

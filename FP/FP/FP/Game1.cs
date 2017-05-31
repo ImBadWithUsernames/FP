@@ -19,6 +19,10 @@ namespace FP
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Rectangle Player;
+        Vector2 location;
+        Texture2D squareTexture;
+        Sprite square;
+        List<Sprite> otherSquares;
 
         public Game1()
         {
@@ -48,6 +52,29 @@ namespace FP
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            squareTexture = Content.Load<Texture2D>("square");
+            location = new Vector2(this.Window.ClientBounds.Width / 2 - 16, this.Window.ClientBounds.Height - 64);
+            square = new Sprite(location, squareTexture, new Rectangle(0, 0, 32, 32), Vector2.Zero);
+
+            int step = 0;
+            otherSquares = new List<Sprite>();
+            for (int i = 0; i < 100; i++)
+            {
+                if (i < 5)
+                    step += 64;
+                else if (i >= 5 && i < 10)
+                    step -= 64;
+                else if (i >= 10 && i < 15)
+                    step = 0;
+                else if (i >= 15 && i <= 20)
+                    step = (i % 2) * 64;
+                else step = 0;
+
+                location = new Vector2(this.Window.ClientBounds.Width / 2 - 16 + 600 + i * 160, this.Window.ClientBounds.Height - 64 - step);
+                otherSquares.Add(new Sprite(location, squareTexture, new Rectangle(0, 0, 32, 32), new Vector2(-290, 0)));
+            }
+
+
             // TODO: use this.Content to load your game content here
         }
 
@@ -71,7 +98,49 @@ namespace FP
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
+
+            KeyboardState kb = Keyboard.GetState();
+
+            square.Velocity += new Vector2(0, 64);
+            
+            if (square.Location.Y >= this.Window.ClientBounds.Height-64)
+            {
+                square.Velocity = new Vector2(0, 0);
+                square.Rotation = 0;
+                square.Location = new Vector2(square.Location.X, this.Window.ClientBounds.Height - 64);                
+            }
+
+            foreach (Sprite s in otherSquares)
+            {
+                s.Update(gameTime);
+
+                if (square.IsBoxColliding(s.BoundingBoxRect))
+                {
+                    if (square.Center.Y < s.Center.Y)
+                    {
+                        square.Velocity = new Vector2(0, 0);
+                        square.Rotation = 0;
+                        square.Location = new Vector2(square.Location.X, s.Location.Y - 32);
+                    }
+                    else
+                    {
+                        // GAME OVER!!!
+                     }
+                }
+            }
+
+            if (kb.IsKeyDown(Keys.Space) && square.Velocity.Y == 0)
+            {
+                square.Velocity = new Vector2(0, -900);
+            }
+
+            if (Math.Abs(square.Velocity.Y) > 0)
+                square.Rotation += MathHelper.Pi / 32;
+
+
+
             // TODO: Add your update logic here
+            square.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -82,9 +151,16 @@ namespace FP
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.SkyBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            square.Draw(spriteBatch);
+            foreach (Sprite s in otherSquares)
+            {
+                s.Draw(spriteBatch);
+            }
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }

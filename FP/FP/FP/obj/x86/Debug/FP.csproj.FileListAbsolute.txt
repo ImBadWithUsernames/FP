@@ -15,3 +15,5 @@ C:\Users\eahscs\Documents\GitHub\FP\FP\FP\FP\obj\x86\Debug\Microsoft.Xna.Framewo
 C:\Users\eahscs\Documents\GitHub\FP\FP\FP\FP\obj\x86\Debug\FP.exe
 C:\Users\eahscs\Documents\GitHub\FP\FP\FP\FP\obj\x86\Debug\FP.pdb
 C:\Users\eahscs\Documents\GitHub\FP\FP\FP\FP\bin\x86\Debug\Content\square.xnb
+C:\Users\eahscs\Documents\GitHub\FP\FP\FP\FP\bin\x86\Debug\Content\gameover.xnb
+C:\Users\eahscs\Documents\GitHub\FP\FP\FP\FP\bin\x86\Debug\Content\gameover1.xnb

@@ -22,8 +22,10 @@ namespace FP
         Vector2 location;
         Texture2D squareTexture;
         Sprite square;
+        Texture2D GO;
         List<Sprite> otherSquares;
-
+        enum GameStates { playing, gameover};
+        GameStates gamestate = GameStates.playing;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -51,14 +53,14 @@ namespace FP
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+          
             squareTexture = Content.Load<Texture2D>("square");
             location = new Vector2(this.Window.ClientBounds.Width / 2 - 16, this.Window.ClientBounds.Height - 64);
             square = new Sprite(location, squareTexture, new Rectangle(0, 0, 32, 32), Vector2.Zero);
 
             int step = 0;
             otherSquares = new List<Sprite>();
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 200; i++)
             {
                 if (i < 5)
                     step += 64;
@@ -67,6 +69,8 @@ namespace FP
                 else if (i >= 10 && i < 15)
                     step = 0;
                 else if (i >= 15 && i <= 20)
+                    step = (i % 2) * 64;
+                else if (i >= 100 && i <= 200)
                     step = (i % 2) * 64;
                 else step = 0;
 
@@ -125,7 +129,11 @@ namespace FP
                     else
                     {
                         // GAME OVER!!!
-                     }
+                        gamestate = GameStates.gameover;
+                        GO = Content.Load<Texture2D>("gameover");
+                        //WELL I CANT GET IT TO WORK SO WHATEVER CLOSING THE GAME WORKS TOO
+
+                        }
                 }
             }
 

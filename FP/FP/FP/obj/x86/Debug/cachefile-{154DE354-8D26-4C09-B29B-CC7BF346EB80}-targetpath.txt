@@ -1,1 +1,3 @@
 Content\square.xnb
+Content\gameover1.xnb
+Content\gameover.xnb
